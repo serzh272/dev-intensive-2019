@@ -28,15 +28,23 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
             if(question.answers.contains(answer) || question.answers.contains(answer.toLowerCase())){
                 question = question.nextQuestion()
                 //status = Status.NORMAL
-                return "Отлично - ты справился!\n${question.question}" to status.color
-            }else{
-                if(status == Status.CRITICAL){
+                return "Отлично - ты справился\n${question.question}" to status.color
+            }else {
+                if (status == Status.CRITICAL && question != Question.IDLE) {
                     status = Status.NORMAL
                     question = Question.NAME
                     return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                } else {
+
+                    return if (question == Question.IDLE){
+                         ""
+                    }else{
+                        status = status.nextStatus()
+                        "Это неправильный ответ\n"
+                    }+ "${question.question}" to status.color
+
+
                 }
-                status = status.nextStatus()
-                return "Это неправильный ответ!\n${question.question}" to status.color
             }
         }
         else{
