@@ -77,7 +77,7 @@ data class User (val id:String,
         fun id(value:String) = apply { id = value }
         fun firstName(value: String) = apply { firstName = value }
         fun lastName(value: String) = apply { lastName = value }
-        fun avatar(value:String) = apply { avatar = value }
+        fun avatar(value:String?) = apply { avatar = value }
         fun rating(value:Int) = apply { rating = value }
         fun respect(value:Int) = apply { respect = value }
         fun lastVisit(value: Date) = apply { lastVisit = value }
