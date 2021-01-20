@@ -24,20 +24,26 @@ class Bender(var status:Status = Status.NORMAL, var question:Question = Question
     }
     fun listenAnswer(answer:String):Pair<String, Triple<Int, Int, Int>>{
         val (isValid, error) = isAnswerValid(question, answer)
-        return if(isValid){
-                if(question.answers.contains(answer) || question.answers.contains(answer.toLowerCase())){
+        if(isValid){
+            if(question.answers.contains(answer) || question.answers.contains(answer.toLowerCase())){
                 question = question.nextQuestion()
-                status = Status.NORMAL
-                "Отлично - ты справился!\n${question.question}" to status.color
+                //status = Status.NORMAL
+                return "Отлично - ты справился!\n${question.question}" to status.color
             }else{
+                if(status == Status.CRITICAL){
+                    status = Status.NORMAL
+                    question = Question.NAME
+                    return "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                }
                 status = status.nextStatus()
-                "Это неправильный ответ!\n${question.question}" to status.color
+                return "Это неправильный ответ!\n${question.question}" to status.color
             }
         }
         else{
-            "$error\n${question.question}" to status.color
+            return "$error\n${question.question}" to status.color
         }
     }
+
     enum class Status(val color:Triple<Int, Int, Int>){
         NORMAL (Triple(255, 255, 255)),
         WARNING (Triple(255, 120, 0)),
