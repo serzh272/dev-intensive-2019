@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.extentions
+package ru.skillbranch.devintensive.extensions
 
 fun String.truncate(numSym:Int = 16):String{
     return if (this.length >numSym) this.subSequence(0, numSym).toString().trimEnd() +"..." else this
