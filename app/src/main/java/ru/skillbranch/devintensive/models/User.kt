@@ -67,8 +67,8 @@ data class User (val id:String,
     }
 
     data class Builder(var id:String = "0",
-    var firstName:String? = "John",
-    var lastName:String? = "Doe",
+    var firstName:String? = null,
+    var lastName:String? = null,
     var avatar:String? = null,
     var rating:Int=0,
     var respect:Int = 0,

@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.extentions
+package ru.skillbranch.devintensive.extensions
 
 import java.lang.Math.abs
 import java.text.SimpleDateFormat
@@ -28,25 +28,25 @@ enum class TimeUnits{
     SECOND{
           override fun plural(units:Long):String{
               timeNames = listOf("секунду", "секунды", "секунд")
-              return "$units " + if (units < 10 || units >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
+              return "$units " + if (units%100 < 10 || units%100 >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
           }
           },
     MINUTE{
         override fun plural(units:Long):String{
             timeNames = listOf("минуту", "минуты", "минут")
-            return "$units " + if (units < 10 || units >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
+            return "$units " + if (units%100 < 10 || units%100 >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
         }
           },
     HOUR{
         override fun plural(units:Long):String{
             timeNames = listOf("час", "часа", "часов")
-            return "$units " + if (units < 10 || units >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
+            return "$units " + if (units%100 < 10 || units%100 >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
         }
         },
     DAY{
         override fun plural(units:Long):String{
             timeNames = listOf("день", "дня", "дней")
-            return "$units " + if (units < 10 || units >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
+            return "$units " + if (units%100 < 10 || units%100 >15) (if (units%10 in 2..4) timeNames[1] else if (units%10 == 1L) timeNames[0] else timeNames[2]) else timeNames[2]
         }
     };
     var timeNames: List<String> = listOf()
@@ -64,14 +64,14 @@ fun Date.humanizeDiff(date:Date = Date()): String {
     val exprBefore = "через %"
     val exprAfter = "% назад"
     val rez = when (abs(interval)){
-        in 0L until SECOND -> if(interval < 0) "сейчас" else "только что"
-        in SECOND until 45*SECOND -> "несколько секунд"
-        in 45*SECOND until 75*SECOND -> "минуту"
-        in 75*SECOND until 45*MINUTE -> TimeUnits.MINUTE.plural(minutes)
-        in 45*MINUTE until 75* MINUTE -> "час"
-        in 75*MINUTE until 22* HOUR -> TimeUnits.HOUR.plural(hours)
-        in 22*HOUR until 26* HOUR -> "день"
-        in 26*HOUR until DAY*360 -> TimeUnits.DAY.plural(days)
+        in 0L until SECOND+1 -> "только что"
+        in SECOND+1 until 45*SECOND+1 -> "несколько секунд"
+        in 45*SECOND+1 until 75*SECOND+1 -> "минуту"
+        in 75*SECOND+1 until 45*MINUTE+1 -> TimeUnits.MINUTE.plural(minutes)
+        in 45*MINUTE+1 until 75* MINUTE+1 -> "час"
+        in 75*MINUTE+1 until 22* HOUR+1 -> TimeUnits.HOUR.plural(hours)
+        in 22*HOUR+1 until 26* HOUR+1 -> "день"
+        in 26*HOUR+1 until DAY*360+1 -> TimeUnits.DAY.plural(days)
         else -> if(interval < 0) "более чем через год" else "более года назад"
     }
     return when (rez){

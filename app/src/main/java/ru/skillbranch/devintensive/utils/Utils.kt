@@ -2,15 +2,15 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?>{
-        val parts : List<String>? = fullName?.split(" ")
+        val parts : List<String>? = fullName?.trim()?.split(" ")
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
         return Pair(if(firstName.isNullOrEmpty()) null else firstName, if(lastName.isNullOrEmpty()) null else lastName)
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val fn = if(firstName.isNullOrBlank()) null else firstName.elementAt(0).toUpperCase()
-        val ln = if(lastName.isNullOrBlank()) null else lastName.elementAt(0).toUpperCase()
+        val fn = if(firstName.isNullOrBlank()) null else firstName.trim().elementAt(0).toUpperCase()
+        val ln = if(lastName.isNullOrBlank()) null else lastName.trim().elementAt(0).toUpperCase()
         return if (fn == null && ln == null){
             null
         }else if (fn == null || ln == null){
@@ -64,6 +64,7 @@ object Utils {
         for (ch:Char in payload){
 
             curStr = voc.get(ch.toLowerCase())
+            if(curStr=="") continue
             if (ch.isUpperCase()){
                 curStr = curStr?.replace(curStr[0], curStr.elementAt(0).toUpperCase())
             }
