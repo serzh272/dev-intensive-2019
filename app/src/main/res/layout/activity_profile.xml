@@ -37,7 +37,8 @@
                     android:layout_height="@dimen/avatar_round_size"
                     app:cv_borderWidth="2dp"
                     app:cv_borderColor="@android:color/white"
-                    android:src="@drawable/avatar_default"
+                    app:cv_initials="BA"
+                    tools:src="@drawable/avatar_default"
                     android:layout_centerHorizontal="true"
                     android:layerType="hardware"
             />

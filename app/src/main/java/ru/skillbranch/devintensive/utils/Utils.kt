@@ -1,5 +1,14 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.BitmapDrawable
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.drawable.toDrawable
+
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?>{
         val parts : List<String>? = fullName?.split(" ")
@@ -61,15 +70,15 @@ object Utils {
                                             ' ' to divider)
         var rez = ""
         var curStr:String?
-        for (ch:Char in payload){
-
+        for (ch:Char in payload.trim()){
             curStr = voc.get(ch.toLowerCase())
+            if (curStr=="") continue
             if (ch.isUpperCase()){
                 curStr = curStr?.replace(curStr[0], curStr.elementAt(0).toUpperCase())
             }
             rez += if (curStr.isNullOrEmpty()) ch else curStr
         }
-        return rez
+        return if (rez == divider) "" else rez
     }
 }
 

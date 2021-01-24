@@ -12,11 +12,13 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
@@ -56,6 +58,12 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateTheme(mode: Int) {
         Log.d("M_ProfileActivity", "updateTheme")
         delegate.setLocalNightMode(mode)
+        if (mode == AppCompatDelegate.MODE_NIGHT_NO) {
+            iv_avatar.setBackgroundColor(resources.getColor(R.color.color_accent, theme))
+        }else{
+            iv_avatar.setBackgroundColor(resources.getColor(R.color.color_accent_night, theme))
+        }
+
     }
 
     private fun updateUI(profile: Profile) {
@@ -64,6 +72,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
+        iv_avatar.setImageDrawable(iv_avatar.stringToBitmap(Utils.toInitials(firstName = et_first_name.text.toString(), lastName = et_last_name.text.toString())))
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -79,7 +88,6 @@ class ProfileActivity : AppCompatActivity() {
         )
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE, false) ?: false
         showCurrentMode(isEditMode)
-
         btn_edit.setOnClickListener {
             if(isEditMode){
                 if (checkRepo(et_repository.text.toString())){
@@ -118,7 +126,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-    fun checkRepo(url:String):Boolean = url == "" || url.contains(Regex("(https://(www\\.)?|www\\.)github.com/[A-Za-z\\d]+[^\\/:?]*$"))!!
+    fun checkRepo(url:String):Boolean = url == "" || url.contains(Regex("(https://(www\\.)?|www\\.)?github.com/[A-Za-z\\d]+[^\\/:?]*$"))!!
 
     private fun showCurrentMode(isEdit:Boolean){
         val info = viewFields.filter { setOf("firstName", "lastName", "about", "repository").contains(it.key) }
