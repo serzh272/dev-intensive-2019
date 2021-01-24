@@ -4,8 +4,11 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +29,8 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //TODO set custom Theme this
+
+        //setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -77,7 +81,14 @@ class ProfileActivity : AppCompatActivity() {
         showCurrentMode(isEditMode)
 
         btn_edit.setOnClickListener {
-            if(isEditMode) saveProfileInfo()
+            if(isEditMode){
+                if (checkRepo(et_repository.text.toString())){
+                    saveProfileInfo()
+                }else{
+                    et_repository.setText("")
+                }
+
+            }
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
         }
@@ -85,7 +96,29 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
+
+        et_repository.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (checkRepo(s.toString())){
+                    wr_repository.error = null
+                }
+                else{
+                    wr_repository.error = "Невалидный адрес репозитория"
+                }
+            }
+
+        })
     }
+
+    fun checkRepo(url:String):Boolean = url == "" || url.contains(Regex("(https://(www\\.)?|www\\.)github.com/[A-Za-z\\d]+[^\\/:?]*$"))!!
 
     private fun showCurrentMode(isEdit:Boolean){
         val info = viewFields.filter { setOf("firstName", "lastName", "about", "repository").contains(it.key) }
