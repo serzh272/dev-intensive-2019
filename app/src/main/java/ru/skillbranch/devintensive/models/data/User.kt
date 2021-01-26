@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.models
+package ru.skillbranch.devintensive.models.data
 
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -51,18 +51,30 @@ data class User (val id:String,
 
     companion object Factory{
         private var lastId : Int = -1
-        fun makeUser(fullName:String?):User{
+        fun makeUser(fullName:String?): User {
             val (firstName, lastName) = Utils.parseFullName(fullName)
             lastId++
             if (firstName.isNullOrEmpty() && lastName.isNullOrEmpty()){
                 return User("$lastId")
             }
             else if(firstName.isNullOrEmpty()){
-                return User("$lastId", "", lastName)
+                return User(
+                    "$lastId",
+                    "",
+                    lastName
+                )
             }else if(lastName.isNullOrEmpty()){
-                return User("$lastId", firstName, "")
+                return User(
+                    "$lastId",
+                    firstName,
+                    ""
+                )
             }
-            return User("$lastId", firstName, lastName)
+            return User(
+                "$lastId",
+                firstName,
+                lastName
+            )
         }
     }
 
@@ -82,8 +94,17 @@ data class User (val id:String,
         fun respect(value:Int) = apply { respect = value }
         fun lastVisit(value: Date) = apply { lastVisit = value }
         fun isOnline(value:Boolean) = apply { isOnline = value }
-        fun build():User{
-            return User(id, firstName, lastName, avatar, rating, respect, lastVisit, isOnline)
+        fun build(): User {
+            return User(
+                id,
+                firstName,
+                lastName,
+                avatar,
+                rating,
+                respect,
+                lastVisit,
+                isOnline
+            )
         }
     }
 }

@@ -79,3 +79,16 @@ fun Date.humanizeDiff(date:Date = Date()): String {
         else -> (if(interval < 0) exprBefore else exprAfter).replace("%", rez)
     }
 }
+
+
+fun Date.shortFormat(): String? {
+    val pattern = if (this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+    return dateFormat.format(this)
+}
+
+fun Date.isSameDay(date:Date): Boolean{
+    val day1 = this.time/ DAY
+    val day2 = date.time/ DAY
+    return day1 == day2
+}

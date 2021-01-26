@@ -58,11 +58,6 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateTheme(mode: Int) {
         Log.d("M_ProfileActivity", "updateTheme")
         delegate.setLocalNightMode(mode)
-        if (mode == AppCompatDelegate.MODE_NIGHT_NO) {
-            iv_avatar.setBackgroundColor(resources.getColor(R.color.color_accent, theme))
-        }else{
-            iv_avatar.setBackgroundColor(resources.getColor(R.color.color_accent_night, theme))
-        }
 
     }
 
@@ -72,7 +67,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
-        iv_avatar.setImageDrawable(iv_avatar.stringToBitmap(Utils.toInitials(firstName = et_first_name.text.toString(), lastName = et_last_name.text.toString())))
+        //iv_avatar.setImageDrawable(iv_avatar.stringToBitmap(Utils.toInitials(firstName = et_first_name.text.toString(), lastName = et_last_name.text.toString())))
     }
 
     private fun initViews(savedInstanceState: Bundle?) {

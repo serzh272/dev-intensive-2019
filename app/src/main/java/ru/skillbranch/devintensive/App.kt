@@ -17,6 +17,8 @@ class App : Application() {
         instance = this
     }
 
+
+
     override fun onCreate() {
         super.onCreate()
         PreferencesRepository.getAppTheme().also {
