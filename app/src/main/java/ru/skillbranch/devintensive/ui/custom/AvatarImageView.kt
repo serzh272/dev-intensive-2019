@@ -42,7 +42,7 @@ class AvatarImageView @JvmOverloads constructor(
             Color.parseColor("#2196F3")
         )
     }
-    @Px
+
     var borderWidth:Float = context.dpToPx(DEFAULT_BORDER_WIDTH)
 
     @ColorInt
@@ -238,7 +238,10 @@ class AvatarImageView @JvmOverloads constructor(
     }
 
     private fun initialsToColor(letters:String):Int{
-        val b:Byte = letters[0].toByte()
+        if (letters.length == 0){
+            Log.d("M_AvatarImageView", letters)
+        }
+        val b:Byte = (if(letters == "") "??" else letters)[0].toByte()
         val len: Int = bgColors.size
         val d:Double = b/len.toDouble()
         val index: Int = ((d - truncate(d))*len).toInt()
