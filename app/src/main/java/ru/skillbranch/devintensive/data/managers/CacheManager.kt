@@ -25,5 +25,6 @@ object CacheManager {
         val copy = chats.value!!.toMutableList()
         copy.add(chat)
         chats.value = copy
+
     }
 }
