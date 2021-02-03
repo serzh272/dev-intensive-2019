@@ -28,7 +28,7 @@ data class Chat(
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private fun lastMessageShort():Pair<String, String>{
+    fun lastMessageShort():Pair<String, String>{
         //TODO implement me
         return "Сообщений еще нет" to "@John_Doe"
     }
