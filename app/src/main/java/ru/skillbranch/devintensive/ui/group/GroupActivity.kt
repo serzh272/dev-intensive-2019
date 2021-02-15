@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.ui.group
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -114,12 +115,14 @@ class GroupActivity : AppCompatActivity() {
     }
     private fun updateChips(listUsers:List<UserItem>){
         chip_group.visibility = if(listUsers.isEmpty()) View.GONE else View.VISIBLE
-        val users = listUsers
-            .associate { user -> user.id to user }
+        val users = listUsers.associateBy { user -> user.id }
             .toMutableMap()
-        val views = chip_group.children.associate { view -> view.tag.toString() to view }
+        val views = chip_group.children.associateBy { view -> view.tag.toString() }
         for ((k, v) in views){
-            if (users.containsKey(k)) chip_group.removeView(v)
+            Log.d("M_Chips", "k=$k")
+            Log.d("M_Chips", "$users")
+
+            if (!users.containsKey(k)) chip_group.removeView(v)
             else users.remove(k)
         }
         users.forEach{
