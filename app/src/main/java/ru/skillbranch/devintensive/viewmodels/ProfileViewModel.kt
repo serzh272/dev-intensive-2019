@@ -5,16 +5,15 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.skillbranch.devintensive.Profile
 import ru.skillbranch.devintensive.repositories.PreferencesRepository
 
 class ProfileViewModel :ViewModel() {
     private val repository:PreferencesRepository = PreferencesRepository
-    private val profileData = MutableLiveData<Profile>()
+    //private val profileData = MutableLiveData<Profile>()
     private val appTheme = MutableLiveData<Int>()
     init {
         Log.d("M_ProfileViewModel", "init view model")
-        profileData.value = repository.getProfile()
+        //profileData.value = repository.getProfile()
         appTheme.value = repository.getAppTheme()
     }
 
@@ -23,13 +22,13 @@ class ProfileViewModel :ViewModel() {
         Log.d("M_ProfileViewModel", "view model cleared")
     }
 
-    fun getProfileData():LiveData<Profile> = profileData
+    //fun getProfileData():LiveData<Profile> = profileData
 
 
-    fun saveProfileData(profile: Profile){
-        repository.saveProfile(profile)
-        profileData.value = profile
-    }
+//    fun saveProfileData(profile: Profile){
+//        repository.saveProfile(profile)
+//        profileData.value = profile
+//    }
 
     fun getTheme():LiveData<Int> = appTheme
 

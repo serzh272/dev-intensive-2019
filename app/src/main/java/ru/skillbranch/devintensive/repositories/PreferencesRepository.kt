@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.App
-import ru.skillbranch.devintensive.Profile
 
 object PreferencesRepository {
 
@@ -22,9 +21,9 @@ object PreferencesRepository {
         PreferenceManager.getDefaultSharedPreferences(ctx)
     }
 
-    fun getProfileData(): Profile? {
-        TODO("not implemented")
-    }
+//    fun getProfileData(): Profile? {
+//        TODO("not implemented")
+//    }
 
 
     fun saveAppTheme(theme: Int) {
@@ -34,27 +33,27 @@ object PreferencesRepository {
     fun getAppTheme(): Int = prefs.getInt("APP_THEME", AppCompatDelegate.MODE_NIGHT_NO)
 
 
-    fun saveProfile(profile: Profile) {
-        with(profile){
-            putValue(FIRST_NAME to firstName)
-            putValue(LAST_NAME to lastName)
-            putValue(ABOUT to about)
-            putValue(REPOSITORY to repository)
-            putValue(RATING to rating)
-            putValue(RESPECT to respect)
-        }
-    }
+//    fun saveProfile(profile: Profile) {
+//        with(profile){
+//            putValue(FIRST_NAME to firstName)
+//            putValue(LAST_NAME to lastName)
+//            putValue(ABOUT to about)
+//            putValue(REPOSITORY to repository)
+//            putValue(RATING to rating)
+//            putValue(RESPECT to respect)
+//        }
+//    }
 
-    fun getProfile(): Profile =
-        Profile(
-
-            prefs.getString(FIRST_NAME, "")!!,
-            prefs.getString(LAST_NAME, "")!!,
-            prefs.getString(ABOUT, "")!!,
-            prefs.getString(REPOSITORY, "")!!,
-            prefs.getInt(RATING, 0),
-            prefs.getInt(RESPECT, 0)
-        )
+//    fun getProfile(): Profile =
+//        Profile(
+//
+//            prefs.getString(FIRST_NAME, "")!!,
+//            prefs.getString(LAST_NAME, "")!!,
+//            prefs.getString(ABOUT, "")!!,
+//            prefs.getString(REPOSITORY, "")!!,
+//            prefs.getInt(RATING, 0),
+//            prefs.getInt(RESPECT, 0)
+//        )
 
 
 

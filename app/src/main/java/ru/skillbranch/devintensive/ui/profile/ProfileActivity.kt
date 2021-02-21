@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
@@ -33,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
-        initViewModel()
+        //initViewModel()
         Log.d("M_ProfileActivity", "onCreate")
     }
 
@@ -42,15 +41,15 @@ class ProfileActivity : AppCompatActivity() {
         outState.putBoolean(IS_EDIT_MODE, isEditMode)
     }
 
-    private fun initViewModel(){
-        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        viewModel.getProfileData().observe(this, Observer {
-            updateUI(it)
-        })
-        viewModel.getTheme().observe(this, Observer {
-            updateTheme(it)
-        })
-    }
+//    private fun initViewModel(){
+//        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+//        viewModel.getProfileData().observe(this, Observer {
+//            updateUI(it)
+//        })
+//        viewModel.getTheme().observe(this, Observer {
+//            updateTheme(it)
+//        })
+//    }
 
     private fun updateTheme(mode: Int) {
         Log.d("M_ProfileActivity", "updateTheme")
@@ -58,14 +57,14 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun updateUI(profile: Profile) {
-        profile.toMap().also {
-            for((k,v) in viewFields){
-                v.text = it[k].toString()
-            }
-        }
-        //iv_avatar.setImageDrawable(iv_avatar.stringToBitmap(Utils.toInitials(firstName = et_first_name.text.toString(), lastName = et_last_name.text.toString())))
-    }
+//    private fun updateUI(profile: Profile) {
+//        profile.toMap().also {
+//            for((k,v) in viewFields){
+//                v.text = it[k].toString()
+//            }
+//        }
+//        //iv_avatar.setImageDrawable(iv_avatar.stringToBitmap(Utils.toInitials(firstName = et_first_name.text.toString(), lastName = et_last_name.text.toString())))
+//    }
 
     private fun initViews(savedInstanceState: Bundle?) {
         viewFields = mapOf(
@@ -83,7 +82,7 @@ class ProfileActivity : AppCompatActivity() {
         btn_edit.setOnClickListener {
             if(isEditMode){
                 if (checkRepo(et_repository.text.toString())){
-                    saveProfileInfo()
+                    //saveProfileInfo()
                 }else{
                     et_repository.setText("")
                 }
@@ -149,14 +148,14 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveProfileInfo(){
-        Profile(
-            firstName = et_first_name.text.toString(),
-            lastName = et_last_name.text.toString(),
-            about = et_about.text.toString(),
-            repository = et_repository.text.toString()
-        ).apply {
-            viewModel.saveProfileData(this)
-        }
-    }
+//    private fun saveProfileInfo(){
+//        Profile(
+//            firstName = et_first_name.text.toString(),
+//            lastName = et_last_name.text.toString(),
+//            about = et_about.text.toString(),
+//            repository = et_repository.text.toString()
+//        ).apply {
+//            viewModel.saveProfileData(this)
+//        }
+//    }
 }
